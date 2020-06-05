@@ -15,7 +15,7 @@ Through this project, you will:
  * see how Commerce.js enables highly customized eCommerce sites
  * build an interactive product page with some basic 3D elements
  * use Commerce.js to provide data for your page
- * have a starting point for a project of your own.
+ * have a starting point for a project of your own
 
 ### Requirements
 
@@ -40,7 +40,7 @@ To begin, you need to create a React application ([create-react-app](https://cre
 - Installing via SDK
 
 ```
-npm install @chec/commerce.js three react-bootstrap react-three-fiber
+npm install @chec/commerce.js three react-bootstrap react-three-fiber drei
 ```
 
 You also need to insert a link to a bootstrap CDN in the index.html file in your project's public folder.
@@ -49,7 +49,8 @@ You also need to insert a link to a bootstrap CDN in the index.html file in your
 ```
 ### Project usage
 
-1. Uploading Products
+**1. Uploading Products**
+
 If you haven't done so already, create a [Chec Dashboard](https://authorize.chec.io/login) account. Once you're logged in, navigate to 'Products.'
 
 ![Chec Products Tab](public/assets/ChecProducts.png)
@@ -57,18 +58,18 @@ If you haven't done so already, create a [Chec Dashboard](https://authorize.chec
 Click "Add Product" and enter the following:
 * Product Name: Fleece Jacket
 * Price: 60
-* Product Description: Be better prepared for anything Mother Nature can throw at you with this fleece jacket. When you step outside and find adventure, know that this jacket will keep you feeling nice and toasty.
+* Product Description: Be better prepared for anything Mother Nature can throw at you with this fleece jacket. When you step outside and find adventure, know that this jacket will keep you feeling nice and toasty
 
 Then, click "Options" and:
 * make a custom permalink called "Jacket"
 * set the quantity to 15
-* add a Variant "Color." In the description field, put "Blue" with a price of 60 and a quantity of 5.
-* add two more colors "Red" and "Flax," each with a price of 60 and a quantity of 5. (The "Add Another" button is directly underneath the description field.)
+* add a Variant "Color." In the description field, put "Blue" with a price of 60 and a quantity of 5
+* add two more colors "Red" and "Flax," each with a price of 60 and a quantity of 5. (The "Add Another" button is directly underneath the description field)
 
 Click "Save Changes" at the bottom of the page and open your code editor.
 
 
-2. Setting up your file structure
+**2. Setting up your file structure**
 
 If you used create-react-app, there are several files you won't need for this guide. You can delete everything in the src folder except index.js and App.js. Then, create a components folder with the following files:
 
@@ -83,7 +84,7 @@ App.js
 index.js
 ```
 
-3. Using Commerce.js
+**3. Using Commerce.js**
 
 In App.js, import Commerce and create a variable with your sandbox public key. (You can find your key in the [Developer section](https://dashboard.chec.io/setup/developer) of Chec Dashboard's 'Setup' tab).
 
@@ -103,6 +104,7 @@ Then import useState() and useEffect() from React, and set up a hook with 'produ
 ```
 import React, { useState, useEffect } from "react";
 import Commerce from "@chec/commerce.js";
+import Item from "./components/Item";
 
 const commerce = new Commerce(
   "pk_test_18265006f98e5bc6f77efa3b7d99014bf7e1a31d0e6a3"
@@ -128,7 +130,7 @@ export default App;
 ```
 [Check out the documentation](https://commercejs.com/docs/overview/getting-started.html) for Commerce.js to see more about the particular method we used and to see what else it can do for your eCommerce business.
 
-4. Building the Item Page
+**4. Building the Item Page**
 
 Put the following code into Item.js:
 ```
@@ -180,7 +182,7 @@ export default Item;
 ```
 This component uses react-bootstrap's responsive grid and takes advantage of the useState hook to store different color options.  These colors are passed to Animation.js via props, which makes it possible to change the color of our jacket. Also, props provide a dynamic way to inject product details into your page.
 
-5. Mapping our product
+**5. Mapping our product**
 
 Navigate back to App.js and map through products, passing props and rendering an Item for each product.
 ```
@@ -195,7 +197,7 @@ return (
 
 You can confirm that everything is working by commenting out the Animation element. Then you should see the unstyled data retrieved from Commerce.js.
 
-6. Styling
+**6. Styling**
 
 Before setting up your Three.js scene, you need to add some CSS so the canvas element will render correctly. So it is a good time to add all the CSS this project requires.
 ```
@@ -283,13 +285,14 @@ h2 {
 }
 ```
 
-7. Three.js and React-Three-Fiber
+**7. Three.js and React-Three-Fiber**
 
 [Three.js](https://threejs.org/) is a JavaScript library that enables a developer to create and run 3D graphics in the browser. It does this by using WebGL to access a computer's graphics hardware directly, providing the speed needed to handle the complex mathematical calculations behind 3D graphics.
 
 [React-three-fiber](https://github.com/react-spring/react-three-fiber) is a reconciler for Three.js. It allows you to use the entirety of the Three.js library while allowing you to use declarative language to build scenes. For example, with react-three-fiber, ` new THREE.Mesh()` is simplified to `<mesh />`. Thus, using react-three-fiber maintains the look and feel the React ecosystem, while enabling you to create whatever you like with Three.js.
 
-8. Setting Up the Scene
+**8. Setting Up the Scene**
+
 For this project, you should start by defining a canvas in the Animation.js file. The canvas is the base element of Three.js, and all other elements of a scene should be rendered inside of it.
 ```
 import React, { Suspense } from "react";
@@ -313,7 +316,7 @@ function Animation(props) {
 
 export default Animation;
 ```
-The scene then needs some lighting. Adding ambient light, a point light, and a spotlight to our canvas will be enough for this guide. Note that 'position' takes an array of three numbers. This array then controls the x,y, and z coordinates of the element.
+The scene then needs some lighting. Adding ambient light, a point light, and a spotlight to your canvas will be enough for this guide. Note that 'position' takes an array of three numbers. This array then controls the x,y, and z coordinates of the element.
 
 ```
 <Canvas
@@ -365,8 +368,6 @@ function Animation(props) {
     <Canvas
       camera={{
         fov: 40,
-        // near: 1,
-        // far: 10,
         position: [0, 0.2, 4],
       }}
       shadowMap
@@ -399,7 +400,8 @@ export default Animation;
 
 ```
 
-9. Adding the Model
+**9. Adding the Model**
+
 The next step in creating a scene is to put at least one object into the canvas. It is entirely possible to create your own objects with Three.js. However, it is a bit beyond the scope of this guide.
 
 Instead, you can import an already completed object/model. Sketchfab has a lot of beautiful (and free) 3D models that you can use. For this project, use [this Jacket]( https://sketchfab.com/3d-models/advanced-game-characters-week-2-jacket-8f211f057bb24f5db17ca659553b716b).
@@ -423,7 +425,7 @@ export default function Model(props) {
 
 **Please Note:** The way this guide renders models works well for two or three items maximum. After that, performance will start to suffer. (The browser also limits how many canvases you can have at a given time). Threejsfundamentals has a [fix for this issue](https://threejsfundamentals.org/threejs/lessons/threejs-multiple-scenes.html). However, to keep things brief, this guide does not address it.
 
-Before navigating away from your model, add `material-color={props.color}` to the `<mesh>`. This will enable the model to change colors when a user clicks the appropriate button.
+Before navigating away from your model, add `material-color={props.color}` to the `<mesh>` and remove `{...props}` from the first `<group>`. This will enable the model to change colors when a user clicks the appropriate button.
 
 You can now add import `<Model />` to Animation.js. The GTLFLoader is promised based, and should be used in conjunction with React's `<Suspense />`.
 
@@ -433,7 +435,7 @@ You can now add import `<Model />` to Animation.js. The GTLFLoader is promised b
 </Suspense>
 ```
 
-10. That's it!
+**10. That's it!**
 
 You should have a working product page that integrates Commerce.js with Three.js. Hopefully it gives you a great starting point for using 3D graphics in your own eCommerce site.
 
@@ -446,6 +448,8 @@ You should have a working product page that integrates Commerce.js with Three.js
 List all frameworks/tools used.
 
 * [Commerce.js](https://commercejs.com/) - eCommerce SDK
+* [Drei](https://github.com/react-spring/drei) - helper components for react-three-fiber
+* [Gltfjsx](https://github.com/react-spring/gltfjsx) - converts gltf files into jsx components
 * [React.js](https://reactjs.org/) - The web framework used
 * [React-Bootstrap](https://react-bootstrap.github.io/) - CSS framework for React
 * [React-Three-Fiber](https://github.com/react-spring/react-three-fiber) - Reconciler for Three.js
