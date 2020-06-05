@@ -435,7 +435,7 @@ You can now add import `<Model />` to Animation.js. The GTLFLoader is promised b
 
 10. That's it!
 
-
+You should have a working product page that integrates Commerce.js with Three.js.
 
 
 
@@ -456,9 +456,3 @@ List all frameworks/tools used.
 ## Author
 
 * **Craig Gant** - [Github](https://github.com/Andreloui5)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## Options
-
-Add any additional customization notes if any.

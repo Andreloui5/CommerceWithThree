@@ -7,11 +7,8 @@ const commerce = new Commerce(
 );
 
 function App() {
-  // state is used to store the product's list so it can be rendered
   const [products, setProducts] = useState([]);
 
-  /* useEffect will fetch the data after initial render, sets the state with the
-  fetched data, and then rerenders with the state*/
   useEffect(() => {
     commerce.products.list().then((res) => {
       setProducts(res.data);
