@@ -4,7 +4,7 @@ This guide shows you how to set up a basic product page using Commerce.js, React
 
 This guide uses v2 of the Commerce.js SDK.
 
-[View the Live Demo]("https://commerce-with-three.herokuapp.com/")
+[View the Live Demo](https://commerce-with-three.herokuapp.com/)
 
 ![Product Page Example](public/assets/Jacket.gif)
 
@@ -27,7 +27,7 @@ You will need:
 
 ### Prerequisites
 
-It will help to understand:
+It will help if you have a working knowledge of:
 - JavaScript
 - React
 - Bootstrap
@@ -68,7 +68,7 @@ Then, click "Options" and:
 Click "Save Changes" at the bottom of the page and open your code editor.
 
 
-2. Seting up your file structure
+2. Setting up your file structure
 
 If you used create-react-app, there are several files you won't need for this guide. You can delete everything in the src folder except index.js and App.js. Then, create a components folder with the following files:
 
@@ -85,7 +85,7 @@ index.js
 
 3. Using Commerce.js
 
-In App.js, import Commerce and create your an object variable with your sandbox public key. (You can find your key in the [Developer section](https://dashboard.chec.io/setup/developer) of Chec Dashboard's 'Setup' tab).
+In App.js, import Commerce and create a variable with your sandbox public key. (You can find your key in the [Developer section](https://dashboard.chec.io/setup/developer) of Chec Dashboard's 'Setup' tab).
 
 The top of App.js should now look something like this:
 
@@ -193,11 +193,11 @@ return (
   );
 ```
 
-You can confirm that everything is working by simply commenting out the Animation element. Then you should see the unstyled data that was retrieved from Commerce.js.
+You can confirm that everything is working by commenting out the Animation element. Then you should see the unstyled data retrieved from Commerce.js.
 
 6. Styling
 
-Before setting up your Three.js scene, you need to add some css for the canvas element on which it will be rendered. So it is a good time to add all the css this project requires.
+Before setting up your Three.js scene, you need to add some CSS so the canvas element will render correctly. So it is a good time to add all the CSS this project requires.
 ```
 body,
 html,
@@ -285,9 +285,9 @@ h2 {
 
 7. Three.js and React-Three-Fiber
 
-[Three.js](https://threejs.org/) is a JavaScript library that enables a developer to create and run 3D graphics in the browser. It does this by using WebGL to directly access a computer's graphics hardware. This provides the speed needed to handle the mathmatical calculations behind 3D graphics.
+[Three.js](https://threejs.org/) is a JavaScript library that enables a developer to create and run 3D graphics in the browser. It does this by using WebGL to access a computer's graphics hardware directly, providing the speed needed to handle the complex mathematical calculations behind 3D graphics.
 
-[React-three-fiber](https://github.com/react-spring/react-three-fiber) is a reconciler for Three.js. It allows you to use the entirety of the Three.js library while allowing you to use declarative language to build scenes. For example, with react-three-fiber, ` new THREE.Mesh()` is simplified to `<mesh />`. Using this reconciler maintains the look and feel the React ecosystem, while enabling you to create whatever you like with Three.js.
+[React-three-fiber](https://github.com/react-spring/react-three-fiber) is a reconciler for Three.js. It allows you to use the entirety of the Three.js library while allowing you to use declarative language to build scenes. For example, with react-three-fiber, ` new THREE.Mesh()` is simplified to `<mesh />`. Thus, using react-three-fiber maintains the look and feel the React ecosystem, while enabling you to create whatever you like with Three.js.
 
 8. Setting Up the Scene
 For this project, you should start by defining a canvas in the Animation.js file. The canvas is the base element of Three.js, and all other elements of a scene should be rendered inside of it.
@@ -313,7 +313,7 @@ function Animation(props) {
 
 export default Animation;
 ```
-The scene then needs some lighting. Addding ambient light, a point light, and a spotlight to our canvas will be enough for this guide. Note that position takes an array of three numbers. This array then controls the x,y,and z coordinates of the element.
+The scene then needs some lighting. Adding ambient light, a point light, and a spotlight to our canvas will be enough for this guide. Note that 'position' takes an array of three numbers. This array then controls the x,y, and z coordinates of the element.
 
 ```
 <Canvas
@@ -421,11 +421,11 @@ export default function Model(props) {
   );
 ```
 
-**Please Note:** The way this guide renders models works well for two or three items maximum. After that, performance will start to suffer. (The browser also limits how many canvases you can have at a given time). Threejsfundamentals has a [fix for this issue](https://threejsfundamentals.org/threejs/lessons/threejs-multiple-scenes.html). However, in order to keep things brief, this guide does not address it.
+**Please Note:** The way this guide renders models works well for two or three items maximum. After that, performance will start to suffer. (The browser also limits how many canvases you can have at a given time). Threejsfundamentals has a [fix for this issue](https://threejsfundamentals.org/threejs/lessons/threejs-multiple-scenes.html). However, to keep things brief, this guide does not address it.
 
-Before navigating away from your Model, add `material-color={props.color}` to the `<mesh>`. This will enable the model to change colors when a user clicks the appropriate button.
+Before navigating away from your model, add `material-color={props.color}` to the `<mesh>`. This will enable the model to change colors when a user clicks the appropriate button.
 
-You can now add import `<Model />` to Animation.js. The GTLFLoader is promised based, and needs to be used in conjunction with React's `<Suspense />`.
+You can now add import `<Model />` to Animation.js. The GTLFLoader is promised based, and should be used in conjunction with React's `<Suspense />`.
 
 ```
 <Suspense fallback={null}>
@@ -438,7 +438,7 @@ You can now add import `<Model />` to Animation.js. The GTLFLoader is promised b
 You should have a working product page that integrates Commerce.js with Three.js. Hopefully it gives you a great starting point for using 3D graphics in your own eCommerce site.
 
 
-[Live Demo]("https://commerce-with-three.herokuapp.com/")
+[Live Demo](https://commerce-with-three.herokuapp.com/)
 
 
 ## Built With
