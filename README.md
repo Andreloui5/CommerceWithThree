@@ -1,6 +1,6 @@
 # Creating a Product Page with React and Three.js
 
-This guide shows you how to set up a basic product page using React, Three.js, and React-Three-Fiber.
+This guide shows you how to set up a basic product page using Commerce.js, React, Three.js, and React-Three-Fiber.
 
 This guide uses v2 of the Commerce.js SDK.
 
@@ -126,7 +126,7 @@ function App() {
 export default App;
 
 ```
-[Check out the documentation](https://commercejs.com/docs/overview/getting-started.html) for Commerce to see more about the particular method we used and to see what else it can do for your eCommerce business.
+[Check out the documentation](https://commercejs.com/docs/overview/getting-started.html) for Commerce.js to see more about the particular method we used and to see what else it can do for your eCommerce business.
 
 4. Building the Item Page
 
@@ -178,15 +178,28 @@ function Item(props) {
 
 export default Item;
 ```
-This component uses react-bootstrap's responsive grid and takes advantage of the useState hook to store different color options. These colors are passed to Animation.js via props, which makes it possible to change the color of our jacket.
+This component uses react-bootstrap's responsive grid and takes advantage of the useState hook to store different color options.  These colors are passed to Animation.js via props, which makes it possible to change the color of our jacket. Also, props provide a dynamic way to inject product details into your page.
 
-5. Styling
+5. Mapping our product
 
-Before going further, add the following css to style.css:
-<details>
-<summary>Click to expand styles</summary>
+Navigate back to App.js and map through products, passing props and rendering an Item for each product.
+```
+return (
+    <div>
+      {products.map((product) => (
+        <Item key={product.id} {...product} />
+      ))}
+    </div>
+  );
+```
 
-```body,
+You can confirm that everything is working by simply commenting out the Animation element. Then you should see the unstyled data that was retrieved from Commerce.js.
+
+6. Styling
+
+Before setting up your Three.js scene, you need to add some css for the canvas element on which it will be rendered. So it is a good time to add all the css this project requires.
+```
+body,
 html,
 canvas {
   width: 100vw;
@@ -269,22 +282,161 @@ h2 {
   }
 }
 ```
-</details>
 
-6. Mapping our product
+7. Three.js and React-Three-Fiber
 
-Navigate back to App.js and map through products, passing props and rendering an Item for each product.
+[Three.js](https://threejs.org/) is a JavaScript library that enables a developer to create and run 3D graphics in the browser. It does this by using WebGL to directly access a computer's graphics hardware. This provides the speed needed to handle the mathmatical calculations behind 3D graphics.
+
+[React-three-fiber](https://github.com/react-spring/react-three-fiber) is a reconciler for Three.js. It allows you to use the entirety of the Three.js library while allowing you to use declarative language to build scenes. For example, with react-three-fiber, ` new THREE.Mesh()` is simplified to `<mesh />`. Using this reconciler maintains the look and feel the React ecosystem, while enabling you to create whatever you like with Three.js.
+
+8. Setting Up the Scene
+For this project, you should start by defining a canvas in the Animation.js file. The canvas is the base element of Three.js, and all other elements of a scene should be rendered inside of it.
 ```
-return (
-    <div>
-      {products.map((product) => (
-        <Item key={product.id} {...product} />
-      ))}
-    </div>
+import React, { Suspense } from "react";
+import { Canvas } from "react-three-fiber";
+import Controls from "./Controls";
+import Model from "./Scene";
+
+function Animation(props) {
+  return (
+    <Canvas
+      camera={{
+        fov: 40,
+        position: [0, 0.2, 4],
+      }}
+      shadowMap
+    >
+
+    </Canvas>
+  );
+}
+
+export default Animation;
+```
+The scene then needs some lighting. Addding ambient light, a point light, and a spotlight to our canvas will be enough for this guide. Note that position takes an array of three numbers. This array then controls the x,y,and z coordinates of the element.
+
+```
+<Canvas
+  camera={{
+    fov: 40,
+    position: [0, 0.2, 4],
+  }}
+  shadowMap
+>
+  <ambientLight intensity={4} />
+  <pointLight intensity={6} position={[-10, -25, -10]} />
+  <spotLight
+    castShadow
+    intensity={8}
+    angle={Math.PI / 8}
+    position={[25, 25, 15]}
+    shadow-mapSize-width={2048}
+    shadow-mapSize-height={2048}
+  />
+</Canvas>
+```
+
+It's also a good idea to add some camera controls to the scene. Add import and extend orbit controls by copying the following into Controls.js:
+```
+import React, { useRef } from "react";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { extend, useThree, useFrame } from "react-three-fiber";
+
+extend({ OrbitControls });
+
+export default function Controls(props) {
+  const { gl, camera } = useThree();
+  const ref = useRef();
+  useFrame(() => ref.current.update());
+  return <orbitControls ref={ref} args={[camera, gl.domElement]} {...props} />;
+}
+```
+
+Now you can add ``<Controls>`` to Animation.js. After adding the controls element to the scene (and giving it some properties), your Animation.js file should look something like this:
+
+```
+import React, { Suspense } from "react";
+import { Canvas } from "react-three-fiber";
+import Controls from "./Controls";
+import Model from "./Scene";
+
+function Animation(props) {
+  return (
+    <Canvas
+      camera={{
+        fov: 40,
+        // near: 1,
+        // far: 10,
+        position: [0, 0.2, 4],
+      }}
+      shadowMap
+    >
+      <Controls
+        autoRotate
+        enablePan={false}
+        enableZoom={false}
+        enableDamping
+        dampingFactor={0.5}
+        rotateSpeed={1}
+        maxPolarAngle={Math.PI / 2}
+        minPolarAngle={Math.PI / 2}
+      />
+      <ambientLight intensity={4} />
+      <pointLight intensity={6} position={[-10, -25, -10]} />
+      <spotLight
+        castShadow
+        intensity={8}
+        angle={Math.PI / 8}
+        position={[25, 25, 15]}
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+      />
+    </Canvas>
+  );
+}
+
+export default Animation;
+
+```
+
+9. Adding the Model
+The next step in creating a scene is to put at least one object into the canvas. It is entirely possible to create your own objects with Three.js. However, it is a bit beyond the scope of this guide.
+
+Instead, you can import an already completed object/model. Sketchfab has a lot of beautiful (and free) 3D models that you can use. For this project, use [this Jacket]( https://sketchfab.com/3d-models/advanced-game-characters-week-2-jacket-8f211f057bb24f5db17ca659553b716b).
+
+Once you've downloaded and unzipped the file, rename the folder 'Jacket' and then open a terminal at its location. Use [gltfjsx](https://github.com/react-spring/gltfjsx) to take the file and make it into a react component with the following code.
+```
+npx gltfjsx scene.gltf -d -compress
+```
+When you open the file now, there should be a file named Scene.js. Add that file to your components folder, and put the other files in the public folder.
+
+Open Scene.js and modify the relative path to the "Jacket" folder by replacing it with an object literal. By doing this, you can leverage the custom permalink you made at the start of this tutorial. As long as you load a folder to 'public' with the same name as a product's custom permalink, it will render automatically.
+```
+export default function Model(props) {
+  const group = useRef();
+  const { nodes, materials } = useLoader(
+    GLTFLoader,
+    `../${props.permalink}/scene.gltf`,
+    draco("/draco-gltf/")
   );
 ```
 
-7.
+**Please Note:** The way this guide renders models works well for two or three items maximum. After that, performance will start to suffer. (The browser also limits how many canvases you can have at a given time). Threejsfundamentals has a [fix for this issue](https://threejsfundamentals.org/threejs/lessons/threejs-multiple-scenes.html). However, in order to keep things brief, this guide does not address it.
+
+Before navigating away from your Model, add `material-color={props.color}` to the `<mesh>`. This will enable the model to change colors when a user clicks the appropriate button.
+
+You can now add import `<Model />` to Animation.js. The GTLFLoader is promised based, and needs to be used in conjunction with React's `<Suspense />`.
+
+```
+<Suspense fallback={null}>
+  <Model {...props} />
+</Suspense>
+```
+
+10. That's it!
+
+
+
 
 
 End with linking an example of live project or demo.

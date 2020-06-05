@@ -15,7 +15,7 @@ export default function Model(props) {
   const group = useRef();
   const { nodes, materials } = useLoader(
     GLTFLoader,
-    `../Items/${props.permalink}/scene.gltf`,
+    `../${props.permalink}/scene.gltf`,
     draco("/draco-gltf/")
   );
 
