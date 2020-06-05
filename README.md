@@ -4,7 +4,7 @@ This guide shows you how to set up a basic product page using Commerce.js, React
 
 This guide uses v2 of the Commerce.js SDK.
 
-[View the Live Demo](https://commerce-with-three.herokuapp.com/)
+[View the Live Demo](https://po30k.csb.app/)
 
 ![Product Page Example](public/assets/Jacket.gif)
 
@@ -438,7 +438,7 @@ You can now add import `<Model />` to Animation.js. The GTLFLoader is promised b
 You should have a working product page that integrates Commerce.js with Three.js. Hopefully it gives you a great starting point for using 3D graphics in your own eCommerce site.
 
 
-[Live Demo](https://commerce-with-three.herokuapp.com/)
+[Live Demo](https://po30k.csb.app/)
 
 
 ## Built With
