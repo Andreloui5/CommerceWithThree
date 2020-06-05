@@ -12,9 +12,7 @@
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "react-spring": "^8.0.27",
     "react-three-fiber": "^4.2.8",
-    "styled-components": "^5.1.1",
     "three": "^0.117.1"
   },
   "scripts": {

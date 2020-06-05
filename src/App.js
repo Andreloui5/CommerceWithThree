@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Commerce from "@chec/commerce.js";
-import ItemCard from "./components/ItemCard";
+import Item from "./components/Item";
 
 const commerce = new Commerce(
   "pk_test_18265006f98e5bc6f77efa3b7d99014bf7e1a31d0e6a3"
@@ -19,15 +19,11 @@ function App() {
   }, []);
 
   return (
-    // <div>
-    //   <Container className="gallery">
     <div>
       {products.map((product) => (
-        <ItemCard key={product.id} {...product} />
+        <Item key={product.id} {...product} />
       ))}
     </div>
-    //   </Container>
-    // </div>
   );
 }
 

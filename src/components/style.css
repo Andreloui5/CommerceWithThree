@@ -57,5 +57,27 @@ h2 {
 
 #buy{
   float:right;
+  margin-top: 0px;
   border-radius: 7px;
+}
+
+@media screen and (max-width: 929px ) {
+  #blue,
+  #flax,
+  #red,
+  #buy {
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-device-width: 575px ) {
+  canvas {
+    width:100%;
+    height: 100%;
+  }
+  .info {
+    margin: 30px;
+    padding: 30px;
+  }
+
 }
