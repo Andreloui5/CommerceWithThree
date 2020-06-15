@@ -13,7 +13,7 @@ This guide uses the [Commerce.js](https://commercejs.com/) SDK (v2).
 Through this project, you will:
 
  * See how Commerce.js enables highly customized eCommerce sites
- * Using [Three.js](https://threejs.org/) to build an interactive product detail page with some basic 3D elements us
+ * Use [Three.js](https://threejs.org/) to build an interactive product detail page with some basic 3D elements
  * Use Commerce.js to provide data for your page
 
 ### Requirements
