@@ -460,6 +460,7 @@ You should have a working product page that integrates Commerce.js with Three.js
 
 [Live Demo](https://po30k.csb.app/)
 
+Check out the next guide in this series and learn how to [create a shopping cart with React and Three.js](https://github.com/Andreloui5/CommerceWithThree-part2)
 
 ## Built With
 
